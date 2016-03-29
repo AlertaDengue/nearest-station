@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Citimus</title>
-    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <script src="https://d3js.org/d3.v3.js" charset="utf-8"></script>
     <script src="script.js" charset="utf-8"></script>
     <link href="style.css" rel="stylesheet" />
 </head>
