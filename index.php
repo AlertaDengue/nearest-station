@@ -38,11 +38,15 @@
       gMunicipalities = gMap.select('g.municipalities');
 
   d3.json('/brazil_geo.json').on('load', function (geojson){
-      palaceLocations.call(gStates, geojson.features, path)
-          .append('title')
-          .text(function(d){ return d.properties.name; });
-
-      gStates.selectAll('path').on('click', clicked(gMap, path, width, height));
+      function title(d){ return d.properties.name; }
+      gStates.selectAll('path')
+            .data(geojson.features)
+            .enter()
+            .append('path')
+            .attr('d', path)
+            .on('click', clicked(gMap, path, width, height))
+            .append('title')
+            .text(title);
   }).on('error', genericError).get();
 
   d3.csv(urlStations).on('load', function (stations){
@@ -83,22 +87,24 @@
       return stations.sort(byDistance);
   }
 
+  function showNearest(d){
+      var centroid = d3.geo.centroid(d);
+      var station = nearestStation(stations, centroid)[0];
+      console.log(d.properties.NM_MUNICIP, ':', station['Estação'], ':', station['ICAO'], ':', station['WMO'])
+  }
+
   function loadMunicipalities(state){
     var urlMunicipalities = state + '-municipalities.json';
     d3.json(urlMunicipalities).on('load', function(geojson){
-        var paths = palaceLocations.call(gMunicipalities, geojson.features, path);
-        function nearestStationOfAFeature(feature){
-            var centroid = d3.geo.centroid(feature);
-            return nearestStation(stations, centroid);
-        }
-        paths.each(function(d){
-          var station = nearestStationOfAFeature(d)[0];
-          console.log(d.properties.NM_MUNICIP, ':', station['Estação'], ':', station['ICAO'], ':', station['WMO'])
-        });
-        paths
-          .on('click', nearestStationOfAFeature)
-          .append('title')
-          .text(function(d){ return d.properties.NM_MUNICIP;});
+        function title(d){ return d.properties.NM_MUNICIP;}
+        gMunicipalities.selectAll('path')
+            .data(geojson.features)
+            .enter()
+            .append('path')
+            .attr('d', path)
+            .each(showNearest)
+            .append('title')
+            .text(title);
     }).on('error', genericError).get();
   }
 

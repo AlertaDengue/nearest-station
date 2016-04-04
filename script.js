@@ -27,13 +27,6 @@ function placeStations(stations, projection){
       .text(function(d){ return d['Estação']; });
 }
 
-function palaceLocations(features, path){
-    var sel = this.selectAll('path').data(features);
-    sel.enter().append('path');
-    sel.exit().remove();
-    return this.selectAll('path').attr('d', path);
-}
-
 function genericError(err){
     console.error(err);
 }
