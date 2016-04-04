@@ -37,21 +37,23 @@
       gStates = gMap.select('g.states'),
       gMunicipalities = gMap.select('g.municipalities');
 
-  d3.json('/brazil_geo.json', function(err, geojson){
-      if(err){ console.log(err);}
+  function genericError(err){
+      console.error(err);
+  }
+
+  d3.json('/brazil_geo.json').on('load', function (geojson){
       palaceLocations.call(gStates, geojson.features, path)
           .append('title')
           .text(function(d){ return d.properties.name; });
 
       gStates.selectAll('path').on('click', clicked(gMap, path, width, height));
-  });
+  }).on('error', genericError).get();
 
-  d3.csv(urlStations, function (err, stations){
-      if(err){console.log(err)}
+  d3.csv(urlStations).on('load', function (stations){
       console.log(stations.filter(d => parseFloat(d.Latitude) > 6));
       placeStations.call(gStations, stations, projection);
       window.stations = stations;
-  });
+  }).on('error', genericError).get();
 
 
   function clicked(g, path, width, height) {
@@ -68,7 +70,7 @@
               .attr("transform", "translate(" + center.translate + ")scale(" + center.scale + ")");
 
           gStations.selectAll('circle').attr('r', 2/center.scale);
-          console.log(d.properties)
+          console.info(d.properties)
           loadMunicipalities(d.properties.sigla.toLowerCase());
       };
   }
@@ -88,8 +90,7 @@
 
   function loadMunicipalities(state){
     var urlMunicipalities= state + '-municipalities.json';
-    d3.json(urlMunicipalities, function(err, geojson){
-        if(err){console.log(err)}
+    d3.json(urlMunicipalities).on('load', function(geojson){
         var paths = palaceLocations.call(gMunicipalities, geojson.features, path);
         paths.each(function(d){
           var station = nearestStation(d, stations)[0];
@@ -101,7 +102,7 @@
         paths
           .append('title')
           .text(function(d){ return d.properties.NM_MUNICIP;});
-    });
+    }).on('error', genericError).get();
   }
 
 </script>
