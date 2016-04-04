@@ -72,22 +72,16 @@
       };
   }
 
-  function nearestStation(stations, point){
-      function distance(station){
-        var long = parseFloat(station.Longitude);
-        var lat = parseFloat(station.Latitude);
-        return d3.geo.distance(point, [long, lat]);
-      }
-      function byDistance(a, b){
-          return distance(a) - distance(b);
-      }
-      return stations.sort(byDistance);
+  function distance(station, point){
+    var long = parseFloat(station.Longitude);
+    var lat = parseFloat(station.Latitude);
+    return d3.geo.distance(point, [long, lat]);
   }
 
   function showNearest(d){
       var centroid = d3.geo.centroid(d);
-      var station = nearestStation(stations, centroid)[0];
-      console.log(d.properties.NM_MUNICIP, ':', station['Estação'], ':', station['ICAO'], ':', station['WMO'])
+      var station = stations.sort(nearestStation(distance, centroid))[0];
+      console.log(d.properties.NM_MUNICIP, ':', station['Estação'], ':', station['ICAO'], ':', station['WMO']);
   }
 
   function loadMunicipalities(state){

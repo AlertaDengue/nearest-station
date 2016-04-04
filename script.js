@@ -38,3 +38,9 @@ function placeStations(stations, projection){
 function genericError(err){
     console.error(err);
 }
+
+function nearestStation(distance, point){
+    return function (a, b){
+        return distance(point, a) - distance(point, b);
+    }
+}
