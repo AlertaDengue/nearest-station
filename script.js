@@ -33,3 +33,7 @@ function palaceLocations(features, path){
     sel.exit().remove();
     return this.selectAll('path').attr('d', path);
 }
+
+function genericError(err){
+    console.error(err);
+}

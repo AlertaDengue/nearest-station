@@ -37,10 +37,6 @@
       gStates = gMap.select('g.states'),
       gMunicipalities = gMap.select('g.municipalities');
 
-  function genericError(err){
-      console.error(err);
-  }
-
   d3.json('/brazil_geo.json').on('load', function (geojson){
       palaceLocations.call(gStates, geojson.features, path)
           .append('title')
