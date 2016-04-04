@@ -25,11 +25,8 @@
   var svg = d3.select('svg')
               .attr('viewBox', '0 0 ' + width + ' ' + height);
 
-  var projection = d3.geo.mercator().scale(1).translate([0, 0]);
-  var brazilBounds = [[-74, 6], [-28, -34]].map(projection); //path.bounds(geojson),
-  var center = centralize(brazilBounds, width, height);
-  projection.scale(center.scale).translate(center.translate);
 
+  var projection = setupProjection(d3.geo.mercator());
   var path = d3.geo.path().projection(projection);
 
   var gMap = svg.select('g.map'),

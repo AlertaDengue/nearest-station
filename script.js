@@ -9,6 +9,14 @@ function centralize(bounds, width, height){
     return {scale: scale, translate: translate};
 }
 
+function setupProjection(projection){
+    projection.scale(1).translate([0, 0]);
+    var brazilBounds = [[-74, 6], [-28, -34]].map(projection);
+    var center = centralize(brazilBounds, width, height);
+    projection.scale(center.scale).translate(center.translate);
+    return projection;
+}
+
 function placeStations(stations, projection){
     stations = stations.map(function(d){
         var lat = parseFloat(d.Latitude);
