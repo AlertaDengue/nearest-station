@@ -75,31 +75,32 @@
       };
   }
 
-  function nearestStation(feature, stations){
-      var centroid = d3.geo.centroid(feature);
+  function nearestStation(stations, point){
       function distance(station){
         var long = parseFloat(station.Longitude);
         var lat = parseFloat(station.Latitude);
-        return d3.geo.distance(centroid, [long, lat]);
+        return d3.geo.distance(point, [long, lat]);
       }
-      var distances = stations.sort(function(a, b){
+      function byDistance(a, b){
           return distance(a) - distance(b);
-      });
-      return distances;
+      }
+      return stations.sort(byDistance);
   }
 
   function loadMunicipalities(state){
-    var urlMunicipalities= state + '-municipalities.json';
+    var urlMunicipalities = state + '-municipalities.json';
     d3.json(urlMunicipalities).on('load', function(geojson){
         var paths = palaceLocations.call(gMunicipalities, geojson.features, path);
+        function nearestStationOfAFeature(feature){
+            var centroid = d3.geo.centroid(feature);
+            return nearestStation(stations, centroid);
+        }
         paths.each(function(d){
-          var station = nearestStation(d, stations)[0];
+          var station = nearestStationOfAFeature(d)[0];
           console.log(d.properties.NM_MUNICIP, ':', station['Estação'], ':', station['ICAO'], ':', station['WMO'])
         });
-        paths.on('click', function(d){
-            nearestStation(d, stations)
-        })
         paths
+          .on('click', nearestStationOfAFeature)
           .append('title')
           .text(function(d){ return d.properties.NM_MUNICIP;});
     }).on('error', genericError).get();
