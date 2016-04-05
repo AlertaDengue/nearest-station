@@ -8,14 +8,18 @@
     <link href="style.css" rel="stylesheet" />
 </head>
 <body>
-<h1>Estações meteorológicas do Brasil.</h1>
-<svg>
-  <g class="map">
-    <g class="states"></g>
-    <g class="municipalities"></g>
-    <g class="stations"></g>
-  </g>
-</svg>
+<aside>
+    <h1>Estações meteorológicas: <span id="place-name">Brasil</span>.</h1>
+</aside>
+<section>
+    <svg>
+      <g class="map">
+        <g class="states"></g>
+        <g class="municipalities"></g>
+        <g class="stations"></g>
+      </g>
+    </svg>
+</section>
 <script type="text/javascript">
   var urlStations = 'https://raw.githubusercontent.com/AlertaDengue/AlertaDengueCaptura/master/utilities/stations/stations_seed.csv';
 
