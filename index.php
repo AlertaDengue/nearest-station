@@ -9,7 +9,7 @@
 </head>
 <body>
 <aside>
-    <h1>Estações meteorológicas: <span id="place-name">Brasil</span>.</h1>
+    <h1>Estações meteorológicas: <span id="place-name">Brasil.</span></h1>
 </aside>
 <section>
     <svg>
@@ -71,7 +71,7 @@
               .attr("transform", "translate(" + center.translate + ")scale(" + center.scale + ")");
 
           gStations.selectAll('circle').attr('r', 2/center.scale);
-          d3.select('#place-name').text(d.properties.name)
+          d3.select('#place-name').text(d.properties.name + '.')
           console.info(d.properties)
           loadMunicipalities(d.properties.sigla.toLowerCase());
       };
