@@ -4,22 +4,38 @@ body, html{
 }
 
 body{
-  display: flex;
   font-size: 2vw;
 }
 
-body > aside{
+body > header{
+  border-bottom: solid 1px #ccc;
+}
+
+body > header > div{
+  display: flex;
+  margin: 0 auto;
+  width: 40em;
+}
+
+body > header aside{
   padding: 2em;
+  width: 16em;
 }
 
 h1{
   margin: 0;
   padding: 0;
-  font-size: 2em;
+  font-size: 1em;
   font-weight: 100;
-  font-family: sans;
-  width: 10em;
-  flex-basis: 10em;
+  font-family: sans-serif;
+}
+
+h1 span{
+  font-size: 2em;
+  line-height: 1em;
+  height: 2em;
+  display: block;
+  margin-left: -0.06em;
 }
 
 svg{
