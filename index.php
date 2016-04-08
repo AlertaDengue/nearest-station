@@ -81,7 +81,7 @@
       };
   }
 
-  function distance(station, point){
+  function distance(point, station){
     var long = parseFloat(station.Longitude);
     var lat = parseFloat(station.Latitude);
     return d3.geo.distance(point, [long, lat]);
