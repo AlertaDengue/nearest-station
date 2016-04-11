@@ -10,19 +10,18 @@
 <body>
 <header>
     <div>
-    <aside>
-        <h1>Estações<br />meteorológicas:<span id="place-name">Brasil.</span></h1>
-    </aside>
-    <section>
-        <svg>
-          <g class="map">
-            <g class="states"></g>
-            <g class="municipalities"></g>
-            <g class="stations"></g>
-          </g>
-        </svg>
-    </section>
+        <h1>
+            <div><span>Estações meteorológicas:</span></div>
+            <div><span id="place-name">Brasil.</span></div>
+        </h1>
     </div>
+    <svg>
+      <g class="map">
+        <g class="states"></g>
+        <g class="municipalities"></g>
+        <g class="stations"></g>
+      </g>
+    </svg>
 </header>
 <section>
 <table cellspacing="0">
