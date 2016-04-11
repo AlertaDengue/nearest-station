@@ -44,6 +44,25 @@ svg{
   flex-grow: auto;
 }
 
+
+section, table{
+  font-size: .5em;
+}
+
+td:first-child, th:first-child{
+  padding-left: 0;
+}
+
+td, th{
+  padding: 0.5em 1em;
+}
+
+th{
+  font-weight: 600;
+  padding-bottom: 2em;
+  text-align: left;
+}
+
 g.states path{
   cursor: pointer;
 }

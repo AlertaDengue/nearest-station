@@ -24,6 +24,18 @@
     </section>
     </div>
 </header>
+<section>
+<table cellspacing="0">
+    <thead>
+        <tr>
+            <th>Município</th>
+            <th>Estação</th>
+            <th>ICAO</th>
+            <th>WMO</th>
+        </tr>
+    </thead>
+</table>
+</section>
 <script type="text/javascript">
   var urlStations = 'https://raw.githubusercontent.com/AlertaDengue/AlertaDengueCaptura/master/utilities/stations/stations_seed.csv';
 
@@ -90,7 +102,11 @@
   function showNearest(d){
       var centroid = d3.geo.centroid(d);
       var station = stations.sort(nearestStation(distance, centroid))[0];
-      console.log(d.properties.NM_MUNICIP, ':', station['Estação'], ':', station['ICAO'], ':', station['WMO']);
+      var row = d3.select('table').append('tr');
+      row.append('td').text(d.properties.NM_MUNICIP)
+      row.append('td').text(station['Estação'])
+      row.append('td').text(station['ICAO'])
+      row.append('td').text(station['WMO'])
   }
 
   function loadMunicipalities(state){
