@@ -80,7 +80,7 @@
           active = d3.select(this).classed("active", true);
 
           var bounds = path.bounds(d);
-          var center = centralize(bounds, width, height);
+          var center = centralize(bounds, width, height, 0.75, 0.5);
 
           g.transition()
               .duration(750)
