@@ -108,7 +108,7 @@
   }
 
   function loadMunicipalities(state){
-    var urlMunicipalities = state + '-municipalities.json';
+    var urlMunicipalities = 'http://sandbox.israelst.com/br-atlas/geo/' + state + '-municipalities.json'
     d3.json(urlMunicipalities).on('load', function(geojson){
         function title(d){ return d.properties.NM_MUNICIP;}
         gMunicipalities.selectAll('path')
