@@ -42,5 +42,5 @@ function genericError(err){
 function nearestStation(distance, point){
     return function (a, b){
         return distance(point, a) - distance(point, b);
-    }
+    };
 }

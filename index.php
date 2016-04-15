@@ -87,7 +87,6 @@
 
           gStations.selectAll('circle').attr('r', 2/center.scale);
           d3.select('#place-name').text(d.properties.name + '.')
-          console.info(d.properties)
           loadMunicipalities(d.properties.sigla.toLowerCase());
       };
   }
