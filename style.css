@@ -16,8 +16,8 @@ body > header{
 body > header > div,
 body > section{
   margin: 0 auto;
-  width: 64rem;
-  padding: 1em 0;
+  max-width: 64rem;
+  padding: 2rem;
 }
 
 h1 span{
