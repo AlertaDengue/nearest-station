@@ -36,6 +36,7 @@
 </table>
 </section>
 <script type="text/javascript">
+  var baseUrl = 'http://sandbox.israelst.com/br-atlas/geo/';
   var urlStations = 'https://raw.githubusercontent.com/AlertaDengue/AlertaDengueCaptura/master/utilities/stations/stations_seed.csv';
 
   var width = document.body.clientWidth,
@@ -53,7 +54,7 @@
       gStates = gMap.select('g.states'),
       gMunicipalities = gMap.select('g.municipalities');
 
-  d3.json('/brazil_geo.json').on('load', function (geojson){
+  d3.json(baseUrl + 'brazil_simplified.json').on('load', function (geojson){
       function title(d){ return d.properties.name; }
       gStates.selectAll('path')
             .data(geojson.features)
@@ -108,7 +109,7 @@
   }
 
   function loadMunicipalities(state){
-    var urlMunicipalities = 'http://sandbox.israelst.com/br-atlas/geo/' + state + '-municipalities.json'
+    var urlMunicipalities = baseUrl + state + '-municipalities.json'
     d3.json(urlMunicipalities).on('load', function(geojson){
         function title(d){ return d.properties.NM_MUNICIP;}
         gMunicipalities.selectAll('path')
