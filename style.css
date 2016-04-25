@@ -47,6 +47,9 @@ header svg{
   top: 0;
 }
 
+table{
+  width: 100%;
+}
 
 section, table{
   font-size: .5em;

@@ -133,7 +133,6 @@
   function loadMunicipalities(state, cb){
     var urlMunicipalities = baseUrl + state + '-municipalities.json'
     d3.json(urlMunicipalities).on('load', function(geojson){
-        console.log('Loading map.');
         function title(d){ return d.properties.NM_MUNICIP;}
         gMunicipalities.selectAll('path')
             .data(geojson.features)
