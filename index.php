@@ -97,11 +97,11 @@
 
   function clicked(gMap, path, width, height) {
       return function(d){
-          active.set(d3.select(this));
           if(active.current.empty()){
               var header = document.querySelector('body > header');
               header.style.minHeight =  '0';
           }
+          active.set(d3.select(this));
 
           var center = featureCenter(d, width, height);
           focusState(gMap, center);
