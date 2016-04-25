@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Citimus</title>
     <script src="https://d3js.org/d3.v3.js" charset="utf-8"></script>
     <script src="script.js" charset="utf-8"></script>
