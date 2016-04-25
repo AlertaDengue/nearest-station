@@ -6,6 +6,7 @@
     <title>Citimus</title>
     <script src="https://d3js.org/d3.v3.js" charset="utf-8"></script>
     <script src="script.js" charset="utf-8"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,300italic,400italic,600italic,700italic,800italic,800' rel='stylesheet' type='text/css'>
     <link href="style.css" rel="stylesheet" />
 </head>
 <body>
