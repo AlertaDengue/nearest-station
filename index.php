@@ -87,19 +87,30 @@
   }).on('error', genericError).get();
 
 
-  function clicked(g, path, width, height) {
+  function featureCenter(feature, width, height){
+      var bounds = path.bounds(feature);
+      return centralize(bounds, width, height, 0.75, 0.5);
+  }
+
+  function focusState(gParent, center){
+      gParent.transition()
+          .duration(750)
+          .attr("transform", "translate(" + center.translate + ")scale(" + center.scale + ")");
+
+      gStations.selectAll('circle').attr('r', 2/center.scale);
+  }
+
+  function clicked(gMap, path, width, height) {
       return function(d){
           active.set(d3.select(this));
-          var bounds = path.bounds(d);
-          var center = centralize(bounds, width, height, 0.75, 0.5);
 
-          g.transition()
-              .duration(750)
-              .attr("transform", "translate(" + center.translate + ")scale(" + center.scale + ")");
+          var center = featureCenter(d, width, height);
+          focusState(gMap, center);
 
-          gStations.selectAll('circle').attr('r', 2/center.scale);
           d3.select('#place-name').text(d.properties.name + '.')
-          loadMunicipalities(d.properties.sigla.toLowerCase());
+
+          var state = d.properties.sigla.toLowerCase();
+          loadMunicipalities(state);
       };
   }
 
@@ -119,7 +130,7 @@
       row.append('td').text(station['WMO'])
   }
 
-  function loadMunicipalities(state){
+  function loadMunicipalities(state, cb){
     var urlMunicipalities = baseUrl + state + '-municipalities.json'
     d3.json(urlMunicipalities).on('load', function(geojson){
         function title(d){ return d.properties.NM_MUNICIP;}
@@ -127,10 +138,13 @@
             .data(geojson.features)
             .enter()
             .append('path')
-            .attr('d', path)
             .each(showNearest)
+            .attr('d', path)
             .append('title')
             .text(title);
+        if(cb && cb.call) cb();
+    }).on('beforesend', function(){
+        console.log('Loading map.');
     }).on('error', genericError).get();
   }
 
