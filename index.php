@@ -60,7 +60,7 @@
       current: d3.select(null),
       set: function (el){
           this.current.classed("active", false);
-          this.current = el.classed("active", true);
+          this.current = d3.select(el).classed("active", true);
       },
   };
 
@@ -102,7 +102,7 @@
               var header = document.querySelector('body > header');
               header.style.minHeight =  '0';
           }
-          active.set(d3.select(this));
+          active.set(this);
 
           var center = featureCenter(d, width, height);
           focusState(gMap, center);
