@@ -55,6 +55,19 @@
       gStates = gMap.select('g.states'),
       gMunicipalities = gMap.select('g.municipalities');
 
+  var active = {
+      current: d3.select(null),
+      set: function (el){
+          if(this.current.empty()){
+              var header = document.querySelector('body > header');
+              header.style.minHeight =  '0';
+          }else{
+              this.current.classed("active", false);
+          }
+          this.current = el.classed("active", true);
+      },
+  };
+
   d3.json(baseUrl + 'brazil_simplified.json').on('load', function (geojson){
       function title(d){ return d.properties.name; }
       gStates.selectAll('path')
@@ -75,11 +88,8 @@
 
 
   function clicked(g, path, width, height) {
-      var active = d3.select(null);
       return function(d){
-          active.classed("active", false);
-          active = d3.select(this).classed("active", true);
-
+          active.set(d3.select(this));
           var bounds = path.bounds(d);
           var center = centralize(bounds, width, height, 0.75, 0.5);
 
