@@ -35,6 +35,7 @@
             <th>WMO</th>
         </tr>
     </thead>
+    <tbody></tbody>
 </table>
 </section>
 <script type="text/javascript">
@@ -120,14 +121,25 @@
     return d3.geo.distance(point, [long, lat]);
   }
 
-  function showNearest(d){
+  function computeNearest(d){
       var centroid = d3.geo.centroid(d);
       var station = stations.sort(nearestStation(distance, centroid))[0];
-      var row = d3.select('table').append('tr');
-      row.append('td').text(d.properties.NM_MUNICIP)
-      row.append('td').text(station['Estação'])
-      row.append('td').text(station['ICAO'])
-      row.append('td').text(station['WMO'])
+      return [
+          d.properties.NM_MUNICIP,
+          station['Estação'],
+          station['ICAO'],
+          station['WMO'],
+      ];
+  }
+
+  function showNearest(data){
+      var tbody = d3.select('table tbody');
+      data.forEach(function(row){
+          var tr = tbody.append('tr');
+          row.forEach(function(value){
+              tr.append('td').text(value);
+          });
+      });
   }
 
   function loadMunicipalities(state, cb){
@@ -138,10 +150,11 @@
             .data(geojson.features)
             .enter()
             .append('path')
-            .each(showNearest)
             .attr('d', path)
             .append('title')
             .text(title);
+        nearestStations = geojson.features.map(computeNearest);
+        showNearest(nearestStations);
         if(cb && cb.call) cb();
     }).on('beforesend', function(){
         console.log('Loading map.');
