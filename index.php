@@ -26,6 +26,7 @@
     </svg>
 </header>
 <section>
+<a href="" download='estações-mais-proximas.csv'>Baixar csv.</a>
 <table cellspacing="0">
     <thead>
         <tr>
@@ -64,6 +65,18 @@
           this.current = d3.select(el).classed("active", true);
       },
   };
+
+function createCsv(data){
+    var dataProtocol = "data:text/csv;charset=utf-8,";
+    var rows = data.map(row => row.join(',')).join('\n');
+    return dataProtocol + rows;
+};
+
+function updateCsvLink(csvContent){
+    var encodedUri = encodeURI(csvContent);
+    var link = document.querySelector("a");
+    link.setAttribute("href", encodedUri);
+}
 
   d3.json(baseUrl + 'brazil_simplified.json').on('load', function (geojson){
       function title(d){ return d.properties.name; }
@@ -155,6 +168,7 @@
             .text(title);
         nearestStations = geojson.features.map(computeNearest);
         showNearest(nearestStations);
+        updateCsvLink(createCsv(nearestStations));
         if(cb && cb.call) cb();
     }).on('beforesend', function(){
         console.log('Loading map.');
