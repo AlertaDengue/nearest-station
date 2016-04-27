@@ -34,6 +34,7 @@
             <th>Estação</th>
             <th>ICAO</th>
             <th>WMO</th>
+            <th>Distância</th>
         </tr>
     </thead>
     <tbody></tbody>
@@ -134,6 +135,11 @@ function updateCsvLink(csvContent){
     return d3.geo.distance(point, [long, lat]);
   }
 
+  function rad2km(rad){
+      var earchRadius = 6371;
+      return rad * earchRadius;
+  }
+
   function computeNearest(d){
       var centroid = d3.geo.centroid(d);
       var station = stations.sort(nearestStation(distance, centroid))[0];
@@ -142,6 +148,7 @@ function updateCsvLink(csvContent){
           station['Estação'],
           station['ICAO'],
           station['WMO'],
+          d3.round(rad2km(distance(centroid, station)), 2),
       ];
   }
 
