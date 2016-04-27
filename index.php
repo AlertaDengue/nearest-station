@@ -153,13 +153,16 @@ function updateCsvLink(csvContent){
   }
 
   function showNearest(data){
-      var tbody = d3.select('table tbody');
-      data.forEach(function(row){
-          var tr = tbody.append('tr');
-          row.forEach(function(value){
-              tr.append('td').text(value);
-          });
-      });
+      var tbody = d3.select('table tbody')
+      var trs = tbody.selectAll('tr')
+          .data(data, function(d){ return d[0];});
+      var tr = trs.enter().append('tr')
+      tr.append('td').text(function(d){ return d[0];});
+      tr.append('td').text(function(d){ return d[1];});
+      tr.append('td').text(function(d){ return d[2];});
+      tr.append('td').text(function(d){ return d[3];});
+      tr.append('td').text(function(d){ return d[4];});
+      trs.exit().transition().duration(500).style('opacity', 0).remove();
   }
 
   function loadMunicipalities(state, cb){
