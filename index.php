@@ -26,7 +26,9 @@
     </svg>
 </header>
 <section>
-<a href="" download='estações-mais-proximas.csv'>Baixar csv.</a>
+<div id="toolbox">
+    <a class="export" href="" download="estações-mais-proximas.csv">Baixar csv.</a>
+</div>
 <table cellspacing="0">
     <thead>
         <tr>

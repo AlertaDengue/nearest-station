@@ -47,11 +47,24 @@ header svg{
   top: 0;
 }
 
+#toolbox{
+  text-align: right;
+}
+
+a.export{
+  display: inline-block;
+  color: inherit;
+  background: url(data.svg) no-repeat left center;
+  background-size: auto 1em;
+  padding: 1em 0 1em 1.5em;
+  text-decoration: none;
+}
+
 table{
   width: 100%;
 }
 
-section, table{
+section, table, #toolbox{
   font-size: .5em;
 }
 
