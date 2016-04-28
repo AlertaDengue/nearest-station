@@ -70,8 +70,9 @@
   };
 
 function createCsv(data){
+    function joinFields(row){ return row.join(',');}
     var dataProtocol = "data:text/csv;charset=utf-8,";
-    var rows = data.map(row => row.join(',')).join('\n');
+    var rows = data.map(joinFields).join('\n');
     return dataProtocol + rows;
 };
 
