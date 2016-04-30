@@ -95,6 +95,12 @@ function updateCsvLink(csvContent){
   }).on('error', genericError).get();
 
   d3.csv(urlStations).on('load', function (stations){
+      stations = stations.map(function(station){
+            station.long = parseFloat(station.Longitude);
+            station.lat = parseFloat(station.Latitude);
+            if(station.lat > 6) station.lat *= -1;
+            return station;
+      });
       placeStations.call(gStations, stations, projection);
       window.stations = stations;
   }).on('error', genericError).get();
@@ -132,9 +138,7 @@ function updateCsvLink(csvContent){
   }
 
   function distance(point, station){
-    var long = parseFloat(station.Longitude);
-    var lat = parseFloat(station.Latitude);
-    return d3.geo.distance(point, [long, lat]);
+    return d3.geo.distance(point, [station.long, station.lat]);
   }
 
   function rad2km(rad){

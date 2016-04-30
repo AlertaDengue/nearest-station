@@ -18,18 +18,11 @@ function setupProjection(projection){
 }
 
 function placeStations(stations, projection){
-    stations = stations.map(function(d){
-        var lat = parseFloat(d.Latitude);
-        d.Latitude = lat > 6? lat * -1: lat;
-        d.Longitude = parseFloat(d.Longitude);
-        return d;
-    });
-
     this.selectAll('circle')
       .data(stations)
       .enter()
       .append('circle')
-      .attr("transform", function(d) { return "translate(" + projection([d.Longitude, d.Latitude]) + ")"; })
+      .attr("transform", function(d) { return "translate(" + projection([d.long, d.lat]) + ")"; })
       .attr("r", 2)
       .append('title')
       .text(function(d){ return d['Estação']; });
