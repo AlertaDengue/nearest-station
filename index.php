@@ -95,7 +95,6 @@ function updateCsvLink(csvContent){
   }).on('error', genericError).get();
 
   d3.csv(urlStations).on('load', function (stations){
-      console.log(stations.filter(d => parseFloat(d.Latitude) > 6));
       placeStations.call(gStations, stations, projection);
       window.stations = stations;
   }).on('error', genericError).get();
