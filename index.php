@@ -139,8 +139,8 @@ function updateCsvLink(csvContent){
   }
 
   function rad2km(rad){
-      var earchRadius = 6371;
-      return rad * earchRadius;
+      var earthRadius = 6371;
+      return rad * earthRadius;
   }
 
   function computeNearest(d){
