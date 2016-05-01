@@ -171,20 +171,25 @@ function updateCsvLink(csvContent){
       trs.exit().transition().duration(500).style('opacity', 0).remove();
   }
 
+  function placeMunicipalities(container, features){
+      function title(d){ return d.properties.NM_MUNICIP;}
+      container.selectAll('path')
+          .data(features)
+          .enter()
+          .append('path')
+          .attr('d', path)
+          .append('title')
+          .text(title);
+  }
+
   function loadMunicipalities(state, cb){
     var urlMunicipalities = baseUrl + state + '-municipalities.json'
     d3.json(urlMunicipalities).on('load', function(geojson){
-        function title(d){ return d.properties.NM_MUNICIP;}
-        gMunicipalities.selectAll('path')
-            .data(geojson.features)
-            .enter()
-            .append('path')
-            .attr('d', path)
-            .append('title')
-            .text(title);
-        nearestStations = geojson.features.map(computeNearest);
+        gMunicipalities.call(placeMunicipalities, geojson.features);
+        var nearestStations = geojson.features.map(computeNearest);
         showNearest(nearestStations);
         updateCsvLink(createCsv(nearestStations));
+
         if(cb && cb.call) cb();
     }).on('beforesend', function(){
         console.log('Loading map.');
