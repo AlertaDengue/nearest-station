@@ -125,9 +125,18 @@ function updateCsvLink(csvContent){
               var header = document.querySelector('body > header');
               header.style.minHeight =  '0';
           }
-          active.set(this);
+          var current = active.current.node() !== this? this : null;
+          active.set(current);
 
-          var center = featureCenter(d, width, height);
+          var center;
+          if(active.current.empty()){
+              var header = document.querySelector('body > header');
+              header.style.minHeight =  '100%';
+              center = {translate: [0, 0], scale: 1};
+          }else{
+              center = featureCenter(d, width, height);
+          }
+
           focusState(gMap, center);
 
           d3.select('#place-name').text(d.properties.name + '.')

@@ -102,4 +102,5 @@ circle{
 
 g.municipalities > path{
   opacity: 0.8;
+  pointer-events: none;
 }
