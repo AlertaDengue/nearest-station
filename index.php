@@ -67,6 +67,10 @@
           this.current.classed("active", false);
           this.current = d3.select(el).classed("active", true);
       },
+      toggle: function(el){
+          var current = this.current.node() !== el? el: null;
+          active.set(current);
+      },
   };
 
 function createCsv(data){
@@ -125,8 +129,7 @@ function updateCsvLink(csvContent){
               var header = document.querySelector('body > header');
               header.style.minHeight =  '0';
           }
-          var current = active.current.node() !== this? this : null;
-          active.set(current);
+          active.toggle(this);
 
           var center;
           if(active.current.empty()){
