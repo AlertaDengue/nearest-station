@@ -36,7 +36,7 @@
             <th>Estação</th>
             <th>ICAO</th>
             <th>WMO</th>
-            <th>Distância</th>
+            <th>Distância (km)</th>
         </tr>
     </thead>
     <tbody></tbody>
