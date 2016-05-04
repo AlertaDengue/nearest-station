@@ -172,8 +172,9 @@
 
   function placeMunicipalities(container, features){
       function title(d){ return d.properties.NM_MUNICIP;}
+      function id(d){ return d.properties.ID;}
       container.selectAll('path')
-          .data(features)
+          .data(features, id)
           .enter()
           .append('path')
           .attr('d', path)
