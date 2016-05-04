@@ -37,3 +37,15 @@ function nearestStation(distance, point){
         return distance(point, a) - distance(point, b);
     };
 }
+
+function createCsv(data){
+    function joinFields(row){ return row.join(',');}
+    var dataProtocol = "data:text/csv;charset=utf-8,";
+    var rows = data.map(joinFields).join('\n');
+    return dataProtocol + rows;
+}
+
+function rad2km(rad){
+  var earthRadius = 6371;
+  return rad * earthRadius;
+}

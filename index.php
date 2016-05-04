@@ -73,13 +73,6 @@
       },
   };
 
-function createCsv(data){
-    function joinFields(row){ return row.join(',');}
-    var dataProtocol = "data:text/csv;charset=utf-8,";
-    var rows = data.map(joinFields).join('\n');
-    return dataProtocol + rows;
-};
-
 function updateCsvLink(csvContent){
     var encodedUri = encodeURI(csvContent);
     var link = document.querySelector("a");
@@ -151,11 +144,6 @@ function updateCsvLink(csvContent){
 
   function distance(point, station){
     return d3.geo.distance(point, [station.long, station.lat]);
-  }
-
-  function rad2km(rad){
-      var earthRadius = 6371;
-      return rad * earthRadius;
   }
 
   function computeNearest(d){
