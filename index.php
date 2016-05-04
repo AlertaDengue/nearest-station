@@ -73,12 +73,6 @@
       },
   };
 
-function updateCsvLink(csvContent){
-    var encodedUri = encodeURI(csvContent);
-    var link = document.querySelector("a");
-    link.setAttribute("href", encodedUri);
-}
-
   d3.json(baseUrl + 'brazil_simplified.json').on('load', function (geojson){
       function title(d){ return d.properties.name; }
       gStates.selectAll('path')
@@ -103,6 +97,12 @@ function updateCsvLink(csvContent){
   }).on('error', genericError).get();
 
 
+  function updateCsvLink(csvContent){
+      var encodedUri = encodeURI(csvContent);
+      var link = document.querySelector("a");
+      link.setAttribute("href", encodedUri);
+  }
+
   function featureCenter(feature, width, height){
       var bounds = path.bounds(feature);
       return centralize(bounds, width, height, 0.75, 0.5);
@@ -117,25 +117,24 @@ function updateCsvLink(csvContent){
   }
 
   function clicked(gMap, path, width, height) {
+      var header = document.querySelector('body > header');
       return function(d){
-          if(active.current.empty()){
-              var header = document.querySelector('body > header');
-              header.style.minHeight =  '0';
-          }
+          var minHeight, name, center;
           active.toggle(this);
 
-          var center;
           if(active.current.empty()){
-              var header = document.querySelector('body > header');
-              header.style.minHeight =  '100%';
+              name = 'Brasil';
+              minHeight =  '100%';
               center = {translate: [0, 0], scale: 1};
           }else{
+              name = d.properties.name;
+              minHeight =  '0';
               center = featureCenter(d, width, height);
           }
 
+          header.style.minHeight = minHeight;
           focusState(gMap, center);
-
-          d3.select('#place-name').text(d.properties.name + '.')
+          d3.select('#place-name').text(name + '.')
 
           var state = d.properties.sigla.toLowerCase();
           loadMunicipalities(state);
@@ -186,10 +185,10 @@ function updateCsvLink(csvContent){
     var urlMunicipalities = baseUrl + state + '-municipalities.json'
     d3.json(urlMunicipalities).on('load', function(geojson){
         gMunicipalities.call(placeMunicipalities, geojson.features);
+
         var nearestStations = geojson.features.map(computeNearest);
         showNearest(nearestStations);
         updateCsvLink(createCsv(nearestStations));
-
         if(cb && cb.call) cb();
     }).on('beforesend', function(){
         console.log('Loading map.');
