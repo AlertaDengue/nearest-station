@@ -83,6 +83,8 @@
             .on('click', clicked(gMap, path, width, height))
             .append('title')
             .text(title);
+  }).on('beforesend', function(){
+      d3.select('#place-name').text('Baixando estações.');
   }).on('error', genericError).get();
 
   d3.csv(urlStations).on('load', function (stations){
