@@ -84,7 +84,7 @@
             .append('title')
             .text(title);
   }).on('beforesend', function(){
-      d3.select('#place-name').text('Baixando estações.');
+      d3.select('#place-name').text('Baixando mapa.');
   }).on('error', genericError).get();
 
   d3.csv(urlStations).on('load', function (stations){
@@ -96,6 +96,9 @@
       });
       placeStations.call(gStations, stations, projection);
       window.stations = stations;
+      d3.select('#place-name').text('Brasil.');
+  }).on('beforesend', function(){
+      d3.select('#place-name').text('Baixando estações.');
   }).on('error', genericError).get();
 
 
@@ -121,25 +124,31 @@
   function clicked(gMap, path, width, height) {
       var header = document.querySelector('body > header');
       return function(d){
-          var minHeight, name, center;
-          active.toggle(this);
-
-          if(active.current.empty()){
-              name = 'Brasil';
-              minHeight =  '100%';
-              center = {translate: [0, 0], scale: 1};
-          }else{
-              name = d.properties.name;
-              minHeight =  '0';
-              center = featureCenter(d, width, height);
-          }
-
-          header.style.minHeight = minHeight;
-          focusState(gMap, center);
-          d3.select('#place-name').text(name + '.')
-
           var state = d.properties.sigla.toLowerCase();
-          loadMunicipalities(state);
+          var urlMunicipalities = baseUrl + state + '-municipalities.json'
+          var clickedEl = this;
+          d3.json(urlMunicipalities).on('load', function(geojson){
+              loadMunicipalities(geojson);
+
+              var minHeight, name, center;
+              active.toggle(clickedEl);
+
+              if(active.current.empty()){
+                  name = 'Brasil';
+                  minHeight =  '100%';
+                  center = {translate: [0, 0], scale: 1};
+              }else{
+                  name = d.properties.name;
+                  minHeight =  '0';
+                  center = featureCenter(d, width, height);
+              }
+
+              header.style.minHeight = minHeight;
+              focusState(gMap, center);
+              d3.select('#place-name').text(name + '.')
+          }).on('beforesend', function(){
+              d3.select('#place-name').text('Carregando mapa.');
+          }).on('error', genericError).get();
       };
   }
 
@@ -184,18 +193,11 @@
           .text(title);
   }
 
-  function loadMunicipalities(state, cb){
-    var urlMunicipalities = baseUrl + state + '-municipalities.json'
-    d3.json(urlMunicipalities).on('load', function(geojson){
-        gMunicipalities.call(placeMunicipalities, geojson.features);
-
-        var nearestStations = geojson.features.map(computeNearest);
-        showNearest(nearestStations);
-        updateCsvLink(createCsv(nearestStations));
-        if(cb && cb.call) cb();
-    }).on('beforesend', function(){
-        console.log('Loading map.');
-    }).on('error', genericError).get();
+  function loadMunicipalities(geojson){
+      gMunicipalities.call(placeMunicipalities, geojson.features);
+      var nearestStations = geojson.features.map(computeNearest);
+      showNearest(nearestStations);
+      updateCsvLink(createCsv(nearestStations));
   }
 
 </script>
