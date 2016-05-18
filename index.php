@@ -27,6 +27,7 @@
 </header>
 <section>
 <div id="toolbox">
+    <p id="status"></p>
     <a class="export" href="" download="estações-mais-proximas.csv">Baixar csv.</a>
 </div>
 <table cellspacing="0">
@@ -117,8 +118,6 @@
       gParent.transition()
           .duration(750)
           .attr("transform", "translate(" + center.translate + ")scale(" + center.scale + ")");
-
-      gStations.selectAll('circle').attr('r', 2/center.scale);
   }
 
   function clicked(gMap, path, width, height) {
@@ -193,11 +192,23 @@
           .text(title);
   }
 
-  function loadMunicipalities(geojson){
-      gMunicipalities.call(placeMunicipalities, geojson.features);
-      var nearestStations = geojson.features.map(computeNearest);
-      showNearest(nearestStations);
-      updateCsvLink(createCsv(nearestStations));
+  function status(text){
+    d3.select('#status').text(text);
+  }
+
+  function loadMunicipalities(state, cb){
+    var urlMunicipalities = baseUrl + state + '-municipalities.json'
+    d3.json(urlMunicipalities).on('load', function(geojson){
+        gMunicipalities.call(placeMunicipalities, geojson.features);
+        status(geojson.features.length + ' municípios.');
+
+        var nearestStations = geojson.features.map(computeNearest);
+        showNearest(nearestStations);
+        updateCsvLink(createCsv(nearestStations));
+        if(cb && cb.call) cb();
+    }).on('beforesend', function(){
+        console.log('Loading map.');
+    }).on('error', genericError).get();
   }
 
 </script>
