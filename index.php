@@ -127,7 +127,7 @@
           var urlMunicipalities = baseUrl + state + '-municipalities.json'
           var clickedEl = this;
           d3.json(urlMunicipalities).on('load', function(geojson){
-              loadMunicipalities(geojson);
+              loadMunicipalities(geojson, state);
 
               var minHeight, name, center;
               active.toggle(clickedEl);
@@ -196,7 +196,7 @@
     d3.select('#status').text(text);
   }
 
-  function loadMunicipalities(state, cb){
+  function loadMunicipalities(geojson, state, cb){
     var urlMunicipalities = baseUrl + state + '-municipalities.json'
     d3.json(urlMunicipalities).on('load', function(geojson){
         gMunicipalities.call(placeMunicipalities, geojson.features);
