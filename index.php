@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Citimus</title>
+    <title>Estações meteorológicas do Brasil</title>
     <script src="https://d3js.org/d3.v3.js" charset="utf-8"></script>
     <script src="script.js" charset="utf-8"></script>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,300italic,400italic,600italic,700italic,800italic,800' rel='stylesheet' type='text/css'>
