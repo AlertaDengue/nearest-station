@@ -34,6 +34,7 @@
     <thead>
         <tr>
             <th>Município</th>
+            <th>Código</th>
             <th>Estação</th>
             <th>ICAO</th>
             <th>WMO</th>
@@ -160,6 +161,7 @@
       var station = stations.sort(nearestStation(distance, centroid))[0];
       return [
           d.properties.NM_MUNICIP,
+          d.properties.CD_GEOCODM,
           station['Estação'],
           station['ICAO'],
           station['WMO'],
@@ -177,6 +179,7 @@
       tr.append('td').text(function(d){ return d[2];});
       tr.append('td').text(function(d){ return d[3];});
       tr.append('td').text(function(d){ return d[4];});
+      tr.append('td').text(function(d){ return d[5];});
       trs.exit().transition().duration(500).style('opacity', 0).remove();
   }
 
