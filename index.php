@@ -45,6 +45,15 @@
 </table>
 </section>
 <script type="text/javascript">
+  var section = {
+      element: document.querySelector('section'),
+      toggle: function (){
+          var display = this.element.style.display;
+          this.element.style.display = display == 'none'? 'block' : 'none';
+      },
+  };
+  section.toggle();
+
   var baseUrl = 'http://sandbox.israelst.com/br-atlas/geo/';
   var urlStations = 'https://raw.githubusercontent.com/AlertaDengue/AlertaDengueCaptura/master/utilities/stations/stations_seed.csv';
 
@@ -143,6 +152,7 @@
                   center = featureCenter(d, width, height);
               }
 
+              section.toggle();
               header.style.minHeight = minHeight;
               focusState(gMap, center);
               d3.select('#place-name').text(name + '.')

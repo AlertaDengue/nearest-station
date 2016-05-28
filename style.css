@@ -14,6 +14,7 @@ body > header{
   position: relative;
   min-height: 100%;
   transition: min-height 0.5s;
+  box-sizing: border-box;
 }
 
 body > header > div,
