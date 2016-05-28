@@ -173,13 +173,15 @@
       var tbody = d3.select('table tbody')
       var trs = tbody.selectAll('tr')
           .data(data, function(d){ return d[0];});
-      var tr = trs.enter().append('tr')
-      tr.append('td').text(function(d){ return d[0];});
-      tr.append('td').text(function(d){ return d[1];});
-      tr.append('td').text(function(d){ return d[2];});
-      tr.append('td').text(function(d){ return d[3];});
-      tr.append('td').text(function(d){ return d[4];});
-      tr.append('td').text(function(d){ return d[5];});
+
+      function addCells(datum){
+          d3.select(this).selectAll('td')
+              .data(datum)
+              .enter()
+              .append('td')
+              .text(function(d){ return d;});
+      }
+      trs.enter().append('tr').each(addCells);
       trs.exit().transition().duration(500).style('opacity', 0).remove();
   }
 
