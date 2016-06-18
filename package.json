@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/israelst/nearest-station/issues"
   },
-  "homepage": "https://github.com/israelst/nearest-station#readme"
+  "homepage": "https://github.com/israelst/nearest-station#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }
