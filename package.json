@@ -1,0 +1,30 @@
+{
+  "name": "nearest-station",
+  "version": "1.0.0",
+  "description": "The project aim to identify the nearest meteorological station of each municipality of Brazil.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/israelst/nearest-station.git"
+  },
+  "keywords": [
+    "geojson",
+    "data",
+    "visualization",
+    "map",
+    "meteorological",
+    "station"
+  ],
+  "author": "Israel Teixeira",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/israelst/nearest-station/issues"
+  },
+  "homepage": "https://github.com/israelst/nearest-station#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
