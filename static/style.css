@@ -55,6 +55,24 @@ p#status{
   margin: 0;
 }
 
+input[type=checkbox]{
+  display: none
+}
+
+input[type=checkbox] + label:before{
+  display: inline-block;
+  width: 1em;
+  content: '❌';
+}
+
+input[type=checkbox]:checked + label:before{
+  content: '✔';
+}
+
+input[type=checkbox] + label{
+  cursor: pointer;
+}
+
 a.export{
   display: inline-block;
   color: inherit;

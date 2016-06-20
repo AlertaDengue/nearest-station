@@ -28,6 +28,10 @@
 <section>
 <div id="toolbox">
     <p id="status"></p>
+    <span>
+        <input id="only-airport" type="checkbox" name="only-airport" value="" checked="checked" />
+        <label for="only-airport">Somente aeroportos</label>
+    </span>
     <a class="export" href="" download="estações-mais-proximas.csv">Baixar csv.</a>
 </div>
 <table cellspacing="0">
@@ -166,9 +170,17 @@
     return d3.geo.distance(point, [station.long, station.lat]);
   }
 
+  function getStations(){
+      if(document.getElementById('only-airport').checked){
+        return stations.filter(station => station['ICAO'] != '-');
+      }else{
+        return statios;
+      }
+  }
+
   function computeNearest(d){
       var centroid = d3.geo.centroid(d);
-      var station = stations.sort(nearestStation(distance, centroid))[0];
+      var station = getStations().sort(nearestStation(distance, centroid))[0];
       return [
           d.properties.NM_MUNICIP,
           d.properties.CD_GEOCODM,
