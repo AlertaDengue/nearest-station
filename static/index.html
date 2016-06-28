@@ -224,19 +224,30 @@
     d3.select('#status').text(text);
   }
 
+  var municipalities = {
+    features: [],
+    nearestStations: function (){
+      var nearestStations = this.features.map(computeNearest);
+      showNearest(nearestStations);
+      updateCsvLink(createCsv(nearestStations));
+    }
+  }
+
   function loadMunicipalities(url, cb){
     d3.json(url).on('load', function(geojson){
         gMunicipalities.call(placeMunicipalities, geojson.features);
         status(geojson.features.length + ' municípios.');
-
-        var nearestStations = geojson.features.map(computeNearest);
-        showNearest(nearestStations);
-        updateCsvLink(createCsv(nearestStations));
+        municipalities.features = geojson.features;
+        municipalities.nearestStations();
         if(cb && cb.call) cb();
     }).on('beforesend', function(){
         d3.select('#place-name').text('Carregando mapa.');
     }).on('error', genericError).get();
   }
+
+  document.getElementById('only-airport').addEventListener('change', function(){
+      municipalities.nearestStations();
+  });
 
 </script>
 </body>
