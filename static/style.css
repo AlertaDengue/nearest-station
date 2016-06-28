@@ -62,6 +62,7 @@ input[type=checkbox]{
 input[type=checkbox] + label:before{
   display: inline-block;
   width: 1em;
+  margin-right: 0.5em;
   content: '❌';
 }
 
@@ -80,6 +81,7 @@ a.export{
   background-size: auto 1em;
   padding-left: 1.5em;
   text-decoration: none;
+  margin-left: 1.5em;
 }
 
 table{
