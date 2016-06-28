@@ -142,9 +142,7 @@
           var state = d.properties.sigla.toLowerCase();
           var urlMunicipalities = baseUrl + state + '-municipalities.json'
           var clickedEl = this;
-          d3.json(urlMunicipalities).on('load', function(geojson){
-              loadMunicipalities(geojson, state);
-
+          loadMunicipalities(urlMunicipalities, function(){
               var minHeight, name, center;
               active.toggle(clickedEl);
 
@@ -162,9 +160,7 @@
               header.style.minHeight = minHeight;
               focusState(gMap, center);
               d3.select('#place-name').text(name + '.')
-          }).on('beforesend', function(){
-              d3.select('#place-name').text('Carregando mapa.');
-          }).on('error', genericError).get();
+          });
       };
   }
 
@@ -225,9 +221,8 @@
     d3.select('#status').text(text);
   }
 
-  function loadMunicipalities(geojson, state, cb){
-    var urlMunicipalities = baseUrl + state + '-municipalities.json'
-    d3.json(urlMunicipalities).on('load', function(geojson){
+  function loadMunicipalities(url, cb){
+    d3.json(url).on('load', function(geojson){
         gMunicipalities.call(placeMunicipalities, geojson.features);
         status(geojson.features.length + ' municípios.');
 
@@ -236,7 +231,7 @@
         updateCsvLink(createCsv(nearestStations));
         if(cb && cb.call) cb();
     }).on('beforesend', function(){
-        console.log('Loading map.');
+        d3.select('#place-name').text('Carregando mapa.');
     }).on('error', genericError).get();
   }
 
