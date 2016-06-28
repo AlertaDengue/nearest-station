@@ -195,7 +195,7 @@
   function showNearest(data){
       var tbody = d3.select('table tbody')
       var trs = tbody.selectAll('tr')
-          .data(data, function(d){ return d[0];});
+          .data(data, function(d){ return d[1] + d[4];});
 
       function addCells(datum){
           d3.select(this).selectAll('td')
@@ -204,7 +204,8 @@
               .append('td')
               .text(function(d){ return d;});
       }
-      trs.enter().append('tr').each(addCells);
+      trs.enter().append('tr');
+      trs.each(addCells);
       trs.exit().transition().duration(500).style('opacity', 0).remove();
   }
 
