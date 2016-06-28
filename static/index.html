@@ -53,12 +53,14 @@
 <script type="text/javascript">
   var section = {
       element: document.querySelector('section'),
-      toggle: function (){
-          var display = this.element.style.display;
-          this.element.style.display = display == 'none'? 'block' : 'none';
+      hide: function (){
+          this.element.style.display = 'none';
+      },
+      show: function (){
+          this.element.style.display = 'block';
       },
   };
-  section.toggle();
+  section.hide();
 
   var baseUrl = 'http://sandbox.israelst.com/br-atlas/geo/';
   var urlStations = 'https://raw.githubusercontent.com/AlertaDengue/AlertaDengueCaptura/master/utilities/stations/stations_seed.csv';
@@ -150,13 +152,14 @@
                   name = 'Brasil';
                   minHeight =  '100%';
                   center = {translate: [0, 0], scale: 1};
+                  section.hide();
               }else{
                   name = d.properties.name;
                   minHeight =  '0';
                   center = featureCenter(d, width, height);
+                  section.show();
               }
 
-              section.toggle();
               header.style.minHeight = minHeight;
               focusState(gMap, center);
               d3.select('#place-name').text(name + '.')
