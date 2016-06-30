@@ -133,9 +133,14 @@
   }
 
   function focusState(gParent, center){
+    var duration = 750;
       gParent.transition()
-          .duration(750)
+          .duration(duration)
           .attr("transform", "translate(" + center.translate + ")scale(" + center.scale + ")");
+      gStations.selectAll('circle')
+          .transition()
+          .duration(duration)
+          .attr("r", (2 / center.scale));
   }
 
   function clicked(gMap, path, width, height) {
