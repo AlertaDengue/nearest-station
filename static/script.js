@@ -49,3 +49,9 @@ function rad2km(rad){
   var earthRadius = 6371;
   return rad * earthRadius;
 }
+
+function flatten(array){
+    return array.reduce(function(a, b){
+        return a.concat(b);
+    }, []);
+}
