@@ -186,15 +186,22 @@
 
   function computeNearest(d){
       var centroid = d3.geo.centroid(d);
-      var station = getStations().sort(nearestStation(distance, centroid))[0];
-      return [
+      var stations = getStations()
+        .sort(nearestStation(distance, centroid))
+        .slice(0, 3);
+
+      var rows = stations.map(function(station, i){
+        return [
           d.properties.NM_MUNICIP,
           d.properties.CD_GEOCODM,
           station['Estação'],
           station['ICAO'],
           station['WMO'],
           d3.round(rad2km(distance(centroid, station)), 2),
-      ];
+        ];
+      });
+
+      return rows;
   }
 
   function showNearest(data){
@@ -209,9 +216,11 @@
               .append('td')
               .text(function(d){ return d;});
       }
+
       trs.enter().append('tr');
-      trs.each(addCells);
       trs.exit().transition().duration(750).style('opacity', 0).remove();
+      trs.sort();
+      trs.each(addCells);
   }
 
   function placeMunicipalities(container, features){
@@ -233,7 +242,7 @@
   var municipalities = {
     features: [],
     nearestStations: function (){
-      var nearestStations = this.features.map(computeNearest);
+      var nearestStations = flatten(this.features.map(computeNearest));
       showNearest(nearestStations);
       updateCsvLink(createCsv(nearestStations));
     }

@@ -88,6 +88,16 @@ table{
   width: 100%;
 }
 
+tr:nth-child(n) td:first-child,
+tr:nth-child(n) td:first-child + td{
+  visibility: hidden;
+}
+
+tr:nth-child(3n - 2) td:first-child,
+tr:nth-child(3n - 2) td:first-child + td{
+  visibility: visible;
+}
+
 section, table, #toolbox{
   font-size: .5em;
 }
