@@ -209,7 +209,7 @@
       var trs = tbody.selectAll('tr')
           .data(data, function(d){ return d[1] + d[4];});
 
-      function addCells(datum, i){
+      function addCells(datum){
           d3.select(this).selectAll('td')
               .data(datum)
               .enter()
