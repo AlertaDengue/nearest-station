@@ -12,9 +12,10 @@ Moreover, we have used two sources of geojsons to visualize data and as input to
 
 The first step is [install nodejs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
-After that, install node modules and start the app:
+After that, install node modules, download csv and start the app:
 
 ```bash
 $ npm install
+$ npm run get-data
 $ npm start
 ```

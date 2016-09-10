@@ -4,6 +4,7 @@
   "description": "The project aim to identify the nearest meteorological station of each municipality of Brazil.",
   "main": "server.js",
   "scripts": {
+    "get-data": "node getData.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
