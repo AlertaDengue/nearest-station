@@ -1,4 +1,4 @@
-FROM debian
+FROM ubuntu
 
 RUN apt-get update
 
