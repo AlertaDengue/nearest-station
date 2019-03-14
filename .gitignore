@@ -38,3 +38,6 @@ jspm_packages
 
 # App specific files
 static/data
+
+#pycharm
+.idea
