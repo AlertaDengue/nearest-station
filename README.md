@@ -19,3 +19,11 @@ $ npm install
 $ npm run get-data
 $ npm start
 ```
+
+## Running the container
+Assuming the web server is configured to forward requests to the port 8001:
+
+```bash
+$ docker build .
+$ docker run -d -p8001:8000 <id of container>
+```
