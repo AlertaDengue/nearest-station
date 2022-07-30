@@ -19,7 +19,7 @@ if(fs.existsSync(gzFile)){
 console.log('Gathering data...');
 https.get({
     host: 'raw.githubusercontent.com',
-    path: '/AlertaDengue/AlertaDengueCaptura/master/utilities/stations/stations_seed.csv',
+    path: '/AlertaDengue/AlertaDengueCaptura/main/crawlclima/utilities/stations/stations_seed.csv',
     rejectUnauthorized: false,
     headers: headers
 }).on('response', function(response){
@@ -41,4 +41,3 @@ https.get({
 }).on('error', function(error){
     console.error("Unreachable data:", error.code);
 });
-
